@@ -158,14 +158,6 @@ endef
 
 # Get a list of all config targets boards/*/*.cmake
 ALL_CONFIG_TARGETS := $(shell find boards -maxdepth 3 -mindepth 3 ! -name '*common*' ! -name '*sdflight*' -name '*.cmake' -print | sed -e 's/boards\///' | sed -e 's/\.cmake//' | sed -e 's/\//_/g' | sort)
-#ALL_CONFIG_TARGETS := $(basename $(shell find "$(SRC_DIR)/cmake/configs" -maxdepth 1 ! -name '*_common*' ! -name '*_sdflight_*' -name '*.cmake' -print | sed  -e 's:^.*/::' | sort))
-
-
-# ALLOW all of
-# VENDORMODEL_LABEL
-# VENDOR_MODEL
-# VENDOR_MODEL_LABEL
-# nuttx_|posix_|qurt_
 
 # Strip off default
 CONFIG_TARGETS_DEFAULT := $(patsubst %_default,%,$(filter %_default,$(ALL_CONFIG_TARGETS)))
