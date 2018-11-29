@@ -46,6 +46,10 @@
 #include <systemlib/printload.h>
 #include <drivers/drv_hrt.h>
 
+#if !defined(CONFIG_SCHED_INSTRUMENTATION)
+#  error load support requires CONFIG_SCHED_INSTRUMENTATION
+#endif
+
 extern struct system_load_s system_load;
 
 #define CL "\033[K" // clear line

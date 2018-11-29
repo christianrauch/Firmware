@@ -41,9 +41,11 @@ set(SRCS
 	)
 
 if(${PX4_PLATFORM} STREQUAL "nuttx")
-	list(APPEND SRCS
-		print_load_nuttx.c
-		)
+	if (DEFINED CONFIG_SCHED_INSTRUMENTATION)
+		if (${CONFIG_SCHED_INSTRUMENTATION} MATCHES "y")
+			list(APPEND SRCS print_load_nuttx.c)
+		endif()
+	endif()
 else()
 	list(APPEND SRCS
 		print_load_posix.c
