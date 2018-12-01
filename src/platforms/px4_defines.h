@@ -134,12 +134,17 @@ typedef param_t px4_param_t;
 #ifdef __cplusplus
 #include <cmath>
 #undef isfinite
+#ifdef CONFIG_ARCH_MATH_H
 template<typename T>
 inline bool isfinite(T __y)
 {
 	int __cy = fpclassify(__y);
 	return __cy != FP_INFINITE && __cy != FP_NAN;
 }
+#else
+template<typename T>
+inline bool isfinite(T __y) { return isfinite(__y); }
+#endif
 namespace std
 {
 using ::isfinite;
@@ -233,7 +238,6 @@ __END_DECLS
 #define M_DEG_TO_RAD_F		0.0174532925f
 #define M_RAD_TO_DEG_F		57.2957795f
 #define M_SQRT2_F		1.41421356f
-#define M_SQRT1_2_F		0.70710678f
 #define M_LN2LO_F		1.90821484E-10f
 #define M_LN2HI_F		0.69314718f
 #define M_SQRT3_F		1.73205081f
@@ -245,3 +249,7 @@ __END_DECLS
 #define M_RAD_TO_DEG 		57.295779513082323
 
 #endif // defined(__PX4_ROS) || defined(__PX4_POSIX)
+
+#if !defined(CONFIG_ARCH_MATH_H)
+#define M_SQRT1_2_F		0.70710678f
+#endif
