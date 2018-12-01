@@ -32,6 +32,10 @@
  ****************************************************************************/
 #pragma once
 
+#if defined(__PX4_NUTTX) && !defined(CONFIG_I2C)
+#  error I2C support requires CONFIG_I2C
+#endif
+
 #ifdef __PX4_NUTTX
 #include "nuttx/I2C.hpp"
 #else
